@@ -4,10 +4,14 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.picpay.desafio.android.features.users.data.network.api.PicPayService
+import com.picpay.desafio.android.features.users.domain.model.User
+import com.picpay.desafio.android.features.users.presentation.viewmodel.UserViewModel
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +24,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var adapter: UserListAdapter
+
+    private lateinit var viewModel: UserViewModel
 
     private val url = "http://careers.picpay.com/tests/mobdev/"
 
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
-
+        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.user_list_progress_bar)
 
@@ -71,5 +77,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     adapter.users = response.body()!!
                 }
             })
+
+        viewModel.getUsers()
     }
 }
