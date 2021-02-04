@@ -1,12 +1,18 @@
-package com.picpay.desafio.android
+package com.picpay.desafio.android.features.users.presentation.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.picpay.desafio.android.R
 import com.picpay.desafio.android.features.users.domain.model.User
 
 class UserListAdapter : RecyclerView.Adapter<UserListItemViewHolder>() {
+
+    init {
+        Log.d("result", "instanicou")
+    }
 
     var users = emptyList<User>()
         set(value) {
@@ -24,7 +30,11 @@ class UserListAdapter : RecyclerView.Adapter<UserListItemViewHolder>() {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_user, parent, false)
 
-        return UserListItemViewHolder(view)
+
+
+        return UserListItemViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: UserListItemViewHolder, position: Int) {

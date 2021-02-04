@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.features.users.data.network
+package com.picpay.desafio.android.features.users.data.network.interceptor
 
 import kotlinx.coroutines.*
 import java.io.IOException
