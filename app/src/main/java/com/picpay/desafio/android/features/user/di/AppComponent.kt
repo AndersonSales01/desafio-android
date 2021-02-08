@@ -7,14 +7,14 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RepositoryModule::class, UseCasesModule::class, ViewModelBuilderModule::class, ViewModelModule::class,NetWorkModule::class])
+@Component(modules = [RepositoryModule::class, UseCasesModule::class, ViewModelBuilderModule::class,
+    ViewModelModule::class,NetWorkModule::class,DatabaseModule::class])
 interface AppComponent {
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
-
 
     fun inject(activity: MainActivity)
 

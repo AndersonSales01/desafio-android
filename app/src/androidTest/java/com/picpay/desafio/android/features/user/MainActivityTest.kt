@@ -27,32 +27,23 @@ class MainActivityTest {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-//    @get:Rule
-//    val activityRule = ActivityTestRule(MainActivity::class.java)
-
+    @get:Rule
+    val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun shouldDisplayTitle() {
-        launchActivity<MainActivity>().apply {
-
-            moveToState(Lifecycle.State.RESUMED)
-
-            UsersScreen {
-                checkingTitleDisplayed(context.getString(expectedTitle))
-            }
+        UsersScreen {
+            checkingTitleDisplayed(context.getString(expectedTitle))
         }
     }
 
-//    @Test
-//    fun shouldDisplayToastError() {
-//       launchActivity<MainActivity>().apply {
-//            UsersScreen {
-//                checkingTitleDisplayed(context.getString(expectedTitle))
-//               checkDisplayToastError(applicationContextx, messageError) }
-//                await(5000)
-//            }
-//        }
-//    }
+    @Test
+    fun shouldDisplayToastError() {
+        UsersScreen {
+            checkingTitleDisplayed(context.getString(expectedTitle))
+            checkDisplayToastError(activityRule.activity, messageError)
+        }
+    }
 
     @Test
     fun shouldDisplayListItem() {
@@ -67,12 +58,12 @@ class MainActivityTest {
 
         server.start(serverPort)
         var hasItems = false
-        launchActivity<MainActivity>().apply {
+
             // TODO("validate if list displays items returned by server")
             try {
                 UsersScreen {
                     checkingTitleDisplayed(context.getString(expectedTitle))
-                    await(5000)
+                    await(3000)
                     hasItems = checkIfItemListExists(R.id.recyclerView)
                     if (hasItems) {
                         checkIfUserInUserList(R.id.recyclerView, 1, "Marina Coelho")
@@ -81,7 +72,6 @@ class MainActivityTest {
             } catch (e: NoMatchingViewException) {
                 hasItems = false
             }
-        }
 
         assertTrue(hasItems)
         server.close()

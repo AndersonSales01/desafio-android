@@ -30,6 +30,10 @@ buildscript {
         rxandroid_version = "2.1.1"
         core_ktx_test_version = "1.2.0"
         room_version ="2.2.3"
+        rules_version ="1.0.2"
+        mockk_version ="1.10.0"
+        teste_ext_version = "1.1.1"
+        robolectric_version = "4.3.1"
     }
 
     repositories {

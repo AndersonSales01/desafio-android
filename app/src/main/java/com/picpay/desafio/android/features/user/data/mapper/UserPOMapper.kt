@@ -3,7 +3,7 @@ package com.picpay.desafio.android.features.user.data.mapper
 import com.picpay.desafio.android.features.user.data.database.model.UserPO
 import com.picpay.desafio.android.features.user.domain.model.User
 
-object UserDaoMapper {
+object UserPOMapper {
 
     fun userListToUserPOList(userList: List<User>): List<UserPO> {
         val userPOList: ArrayList<UserPO> = ArrayList()

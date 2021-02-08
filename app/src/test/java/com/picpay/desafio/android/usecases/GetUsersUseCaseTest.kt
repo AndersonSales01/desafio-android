@@ -2,7 +2,7 @@ package com.picpay.desafio.android.usecases
 
 import com.picpay.desafio.android.features.user.domain.repo.UserRepository
 import com.picpay.desafio.android.features.user.domain.usercase.GetUserUseCase
-import com.picpay.desafio.android.mockks.MockUtil
+import com.picpay.desafio.android.util.MockUtil
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -50,4 +50,5 @@ class GetUsersUseCaseTest {
         // Then
         assertTrue(list.isEmpty())
     }
+
 }

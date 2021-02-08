@@ -6,8 +6,6 @@ import com.picpay.desafio.android.features.user.data.database.dao.UserDao
 import com.picpay.desafio.android.features.user.data.database.model.UserPO
 
 @Database(entities = arrayOf(UserPO::class), version = 1)
-abstract class NewDataBase : RoomDatabase() {
-
+abstract class AppDataBase : RoomDatabase() {
     abstract fun userDao(): UserDao
-
 }

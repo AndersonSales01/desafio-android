@@ -10,10 +10,6 @@ import com.picpay.desafio.android.features.user.domain.model.User
 
 class UserListAdapter : RecyclerView.Adapter<UserListItemViewHolder>() {
 
-    init {
-        Log.d("result", "instanicou")
-    }
-
     var users = emptyList<User>()
         set(value) {
             val result = DiffUtil.calculateDiff(

@@ -1,5 +1,6 @@
-package com.picpay.desafio.android
+package com.picpay.desafio.android.util
 
+import com.picpay.desafio.android.BuildConfig
 import com.picpay.desafio.android.features.user.data.network.api.PicPayService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,5 +14,6 @@ object RetrofitBuilder {
             .build()
     }
 
-    val apiInterface: PicPayService = getRetrofit().create(PicPayService::class.java)
+    val apiInterface: PicPayService = getRetrofit()
+        .create(PicPayService::class.java)
 }
