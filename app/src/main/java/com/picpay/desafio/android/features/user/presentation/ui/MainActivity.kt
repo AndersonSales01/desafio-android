@@ -47,18 +47,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun observables() {
         viewModel.usersList.observe(this, Observer { list->
+            recyclerView.visibility = View.VISIBLE
             adapter.users = list
         })
 
-        viewModel.sucessState.observe(this, Observer { state ->
-            if (state) {
-                recyclerView.visibility = View.VISIBLE
-                getString(R.string.error)
-            } else {
-                recyclerView.visibility = View.GONE
-                Toast.makeText(this@MainActivity, R.string.error, Toast.LENGTH_SHORT)
-                    .show()
-            }
+        viewModel.error.observe(this, Observer { messageError ->
+            recyclerView.visibility = View.GONE
+            Toast.makeText(this@MainActivity, messageError, Toast.LENGTH_SHORT)
+                .show()
         })
 
         viewModel.loading.observe(this, Observer { load->

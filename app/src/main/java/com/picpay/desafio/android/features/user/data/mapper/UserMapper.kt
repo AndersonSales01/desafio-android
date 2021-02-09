@@ -1,16 +1,8 @@
 package com.picpay.desafio.android.features.user.data.mapper
 
-import com.picpay.desafio.android.features.user.domain.model.User
 import com.picpay.desafio.android.features.user.data.network.model.response.UserResponse
+import com.picpay.desafio.android.features.user.domain.model.User
 
-object UserMapper {
-
-    fun toUserObject(response: UserResponse): User {
-        return User(
-            response.img,
-            response.name,
-            response.id,
-            response.username
-        )
-    }
+interface UserMapper {
+    fun responseListtoUserList(response: List<UserResponse>): List<User>
 }

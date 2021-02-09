@@ -42,6 +42,7 @@ class MainActivityTest {
         UsersScreen {
             checkingTitleDisplayed(context.getString(expectedTitle))
             checkDisplayToastError(activityRule.activity, messageError)
+            await(3000)
         }
     }
 

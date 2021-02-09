@@ -7,8 +7,8 @@ import javax.inject.Inject
 class UserLocalDataSourceImpl @Inject constructor(private var dataBase: AppDataBase ) :
     UserLocalDataSource {
 
-    override suspend fun insertUser(userPOList: List<UserPO>) {
-        dataBase.userDao().insertAll(userPOList)
+    override suspend fun insertUser(userPOList: List<UserPO>): List<Long> {
+        return dataBase.userDao().insertAll(userPOList)
     }
 
     override suspend fun getUserListLocal(): List<UserPO> {

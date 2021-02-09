@@ -4,7 +4,7 @@ import com.picpay.desafio.android.features.user.data.database.model.UserPO
 
 interface UserLocalDataSource {
 
-    suspend fun insertUser(userList: List<UserPO>)
+    suspend fun insertUser(userPOList: List<UserPO>): List<Long>
 
     suspend fun getUserListLocal() : List<UserPO>
 }

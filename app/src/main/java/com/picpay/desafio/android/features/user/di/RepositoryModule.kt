@@ -4,6 +4,10 @@ import com.picpay.desafio.android.features.user.data.datasource.local.UserLocalD
 import com.picpay.desafio.android.features.user.data.datasource.local.UserLocalDataSourceImpl
 import com.picpay.desafio.android.features.user.data.datasource.remote.UserRemoteDataSource
 import com.picpay.desafio.android.features.user.data.datasource.remote.UserRemoteDataSourceImpl
+import com.picpay.desafio.android.features.user.data.mapper.UserMapper
+import com.picpay.desafio.android.features.user.data.mapper.UserMapperImpl
+import com.picpay.desafio.android.features.user.data.mapper.UserPOMapper
+import com.picpay.desafio.android.features.user.data.mapper.UserPOMapperImpl
 import com.picpay.desafio.android.features.user.data.repository.UserRepositoryImpl
 import com.picpay.desafio.android.features.user.domain.repo.UserRepository
 import dagger.Binds
@@ -24,4 +28,12 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindUserLocalDataSource(repositoryImpl: UserLocalDataSourceImpl): UserLocalDataSource
+
+    @Binds
+    abstract fun bindUserMapper(userMapper: UserMapperImpl): UserMapper
+
+    @Binds
+    abstract fun bindUserPOMapper(userPOMapper: UserPOMapperImpl): UserPOMapper
+
+
 }

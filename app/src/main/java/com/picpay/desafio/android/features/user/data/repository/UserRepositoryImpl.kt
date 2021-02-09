@@ -3,16 +3,20 @@ package com.picpay.desafio.android.features.user.data.repository
 import com.picpay.desafio.android.features.user.data.datasource.local.UserLocalDataSource
 import com.picpay.desafio.android.features.user.data.datasource.remote.UserRemoteDataSource
 import com.picpay.desafio.android.features.user.data.exception.NoConnectivityException
-import com.picpay.desafio.android.features.user.domain.model.User
-import com.picpay.desafio.android.features.user.data.mapper.UserPOMapper
 import com.picpay.desafio.android.features.user.data.mapper.UserMapper
+import com.picpay.desafio.android.features.user.domain.model.User
+import com.picpay.desafio.android.features.user.data.mapper.UserPOMapperImpl
+import com.picpay.desafio.android.features.user.data.mapper.UserMapperImpl
+import com.picpay.desafio.android.features.user.data.mapper.UserPOMapper
 import com.picpay.desafio.android.features.user.domain.repo.UserRepository
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private var userRemoteDataSource: UserRemoteDataSource,
-    private var userLocalDataSource: UserLocalDataSource
+    private var userLocalDataSource: UserLocalDataSource,
+    private var userMapper: UserMapper,
+    private var userPOMapper: UserPOMapper
 ) : UserRepository {
 
     override suspend fun getUsers(): List<User> {
@@ -25,18 +29,13 @@ class UserRepositoryImpl @Inject constructor(
                 response.let {
                     if (response.body()!!.isNotEmpty()) {
 
-                        for (item in response.body()!!) {
-
-                            val eventObject = UserMapper.toUserObject(item)
-
-                            listUser.add(eventObject)
-                        }
+                        listUser.addAll(userMapper.responseListtoUserList(response.body()!!))
                         insertUsersLocalDB(listUser)
                     } else {
                         listUser.addAll(getUserListLocal())
                     }
                 }
-            }else {
+            } else {
                 listUser.addAll(getUserListLocal())
             }
         } catch (e: NoConnectivityException) {
@@ -48,7 +47,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     private suspend fun insertUsersLocalDB(listUser: List<User>) {
-        userLocalDataSource.insertUser(UserPOMapper.userListToUserPOList(listUser))
+        userLocalDataSource.insertUser(userPOMapper.userListToUserPOList(listUser))
     }
 
     private suspend fun getUserListLocal(): List<User> {
@@ -57,7 +56,7 @@ class UserRepositoryImpl @Inject constructor(
         val userListLocal = userLocalDataSource.getUserListLocal()
 
         if (userListLocal.isNotEmpty()) {
-            listUser = UserPOMapper.userPOListToUserList(userListLocal)
+            listUser = userPOMapper.userPOListToUserList(userListLocal)
         }
         return listUser
     }

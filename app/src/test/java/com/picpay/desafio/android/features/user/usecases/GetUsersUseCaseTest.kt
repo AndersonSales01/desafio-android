@@ -1,11 +1,10 @@
-package com.picpay.desafio.android.usecases
+package com.picpay.desafio.android.features.user.usecases
 
 import com.picpay.desafio.android.features.user.domain.repo.UserRepository
 import com.picpay.desafio.android.features.user.domain.usercase.GetUserUseCase
 import com.picpay.desafio.android.util.MockUtil
-import io.mockk.MockKAnnotations
 import io.mockk.coEvery
-import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
@@ -14,19 +13,18 @@ import org.junit.Test
 
 class GetUsersUseCaseTest {
 
-    @MockK
-    lateinit var repository: UserRepository
+    private lateinit var repository: UserRepository
 
-    lateinit var getUsersUseCase: GetUserUseCase
+    private lateinit var getUsersUseCase: GetUserUseCase
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
+        repository = mockk()
         getUsersUseCase = GetUserUseCase(repository)
     }
 
     @Test
-    fun `test get users Sucess`() = runBlocking {
+    fun `Use case test when return user list is not empty`() = runBlocking {
         // Given
         coEvery { repository.getUsers() } returns MockUtil.userListMock()
 
@@ -39,7 +37,7 @@ class GetUsersUseCaseTest {
     }
 
     @Test
-    fun `test get users fail because list empty`() = runBlocking {
+    fun `Use case test with when return user list is empty`() = runBlocking {
         // Given
         coEvery { repository.getUsers() } returns listOf()
 
