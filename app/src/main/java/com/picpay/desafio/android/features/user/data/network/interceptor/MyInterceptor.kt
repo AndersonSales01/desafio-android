@@ -11,10 +11,6 @@ class MyInterceptor @Inject constructor(): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!ConnectionTest.verifyConectation())
             throw NoConnectivityException()
-            // Throwing our custom exception 'NoConnectivityException'
-
-//        val builder: Request.Builder = chain.request().newBuilder()
-//        return chain.proceed(builder.build())
 
         val response: Response = chain.proceed(chain.request())
         val cacheControl: CacheControl = CacheControl.Builder()

@@ -20,8 +20,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    private val server = MockWebServer()
-
     private val expectedTitle = R.string.title
     private val messageError = R.string.error
 
@@ -48,49 +46,12 @@ class MainActivityTest {
 
     @Test
     fun shouldDisplayListItem() {
-        server.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                return when (request.path) {
-                    "/users" -> successResponse
-                    else -> errorResponse
-                }
-            }
+        UsersScreen {
+            startMockWebServer()
+            checkingTitleDisplayed(context.getString(expectedTitle))
+            await(3000)
+            checkIfItemListExists(R.id.recyclerView)
+            stopMockWebServer()
         }
-
-        server.start(serverPort)
-        var hasItems = false
-
-            // TODO("validate if list displays items returned by server")
-            try {
-                UsersScreen {
-                    checkingTitleDisplayed(context.getString(expectedTitle))
-                    await(3000)
-                    hasItems = checkIfItemListExists(R.id.recyclerView)
-                    if (hasItems) {
-                        checkIfUserInUserList(R.id.recyclerView, 1, "Marina Coelho")
-                    }
-                }
-            } catch (e: NoMatchingViewException) {
-                hasItems = false
-            }
-
-        assertTrue(hasItems)
-        server.close()
     }
-
-    companion object {
-        private const val serverPort = 8080
-
-        private val successResponse by lazy {
-            val body =
-                "[{\"id\":1001,\"name\":\"Eduardo Santos\",\"img\":\"https://randomuser.me/api/portraits/men/9.jpg\",\"username\":\"@eduardo.santos\"}]"
-
-            MockResponse()
-                .setResponseCode(200)
-                .setBody(body)
-        }
-
-        private val errorResponse by lazy { MockResponse().setResponseCode(404) }
-    }
-
 }

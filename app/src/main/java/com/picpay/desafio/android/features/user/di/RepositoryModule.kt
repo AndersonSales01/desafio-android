@@ -17,15 +17,15 @@ import javax.inject.Singleton
 @Module
 abstract class RepositoryModule {
 
-    @Singleton
+    
     @Binds
     abstract fun bindUserRepository(repositoryImpl: UserRepositoryImpl): UserRepository
 
-    @Singleton
+
     @Binds
     abstract fun bindUserRemoteDataSource(repositoryImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
 
-    @Singleton
+
     @Binds
     abstract fun bindUserLocalDataSource(repositoryImpl: UserLocalDataSourceImpl): UserLocalDataSource
 
