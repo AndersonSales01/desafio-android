@@ -56,7 +56,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    fun `second scenario when return user list local`() = runBlocking {
+    fun `second scenario when result list remote is empty then return user list local`() = runBlocking {
         withContext(Dispatchers.IO) {
 
             // Given
@@ -76,7 +76,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    fun `third scenario when return user list is empty`() = runBlocking {
+    fun `third scenario when result list remote and local  is empty then return user list is empty`() = runBlocking {
         withContext(Dispatchers.IO) {
 
             // Given

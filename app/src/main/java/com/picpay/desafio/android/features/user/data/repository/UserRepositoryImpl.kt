@@ -13,10 +13,10 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private var userRemoteDataSource: UserRemoteDataSource,
-    private var userLocalDataSource: UserLocalDataSource,
-    private var userMapper: UserMapper,
-    private var userPOMapper: UserPOMapper
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val userLocalDataSource: UserLocalDataSource,
+    private val userMapper: UserMapper,
+    private val userPOMapper: UserPOMapper
 ) : UserRepository {
 
     override suspend fun getUsers(): List<User> {
